@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tsunami Warning</title>
+<meta name="description" content="Tsunami Warning, an indie rock band from Merced, CA. Listen to By The Sea, see live dates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#06202f; --sea:#0d4a63; --foam:#d8f1f4; --amber:#f6c445; --mist:#8fb4c2;
+  --wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0 70C150 0 300 130 450 70S750 10 900 70 1050 130 1200 70V120H0Z'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--deep);color:var(--foam);font:400 1.05rem/1.65 "Work Sans",system-ui,sans-serif}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+h1,h2{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;line-height:.9;letter-spacing:.01em}
+
+/* Wave wash on load */
+.wash{position:fixed;inset:0;z-index:100;overflow:hidden;pointer-events:none;animation:gone 0s 3.2s forwards}
+.layer{position:absolute;inset:0;background:var(--c);transform:translateY(calc(100% + 120px));animation:rise 2.3s cubic-bezier(.65,0,.3,1) var(--d) forwards}
+.layer::before{content:"";position:absolute;left:0;right:0;top:-119px;height:120px;background:var(--c);
+  -webkit-mask:var(--wave) 0 0/600px 120px repeat-x;mask:var(--wave) 0 0/600px 120px repeat-x;animation:slosh 1.6s linear infinite}
+.layer:nth-child(1){--c:var(--foam);--d:0s}
+.layer:nth-child(2){--c:#2a8cad;--d:.22s}
+.layer:nth-child(3){--c:var(--sea);--d:.44s}
+@keyframes rise{to{transform:translateY(-100%)}}
+@keyframes slosh{to{-webkit-mask-position:600px 0;mask-position:600px 0}}
+@keyframes gone{to{visibility:hidden}}
+
+/* Hero */
+.hero{min-height:100svh;display:grid;align-content:center;padding:clamp(1.5rem,6vw,5rem);position:relative;
+  background:radial-gradient(120% 80% at 50% 110%,var(--sea),var(--deep) 65%);overflow:hidden}
+.hero h1{font-size:clamp(4.5rem,21vw,17rem);text-transform:uppercase;opacity:0;transform:translateY(40px);animation:up 1s cubic-bezier(.2,.7,.2,1) 2.1s forwards}
+.hero h1 span{display:block;color:transparent;-webkit-text-stroke:2px var(--foam)}
+.hero p{margin-top:1.5rem;max-width:34ch;color:var(--mist);font-size:1.2rem;opacity:0;animation:up 1s ease 2.5s forwards}
+.hero .cta{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:up 1s ease 2.7s forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.btn{display:inline-block;padding:.8rem 1.6rem;border:2px solid var(--foam);font-weight:600;text-decoration:none;transition:background .2s,color .2s}
+.btn:hover{background:var(--foam);color:var(--deep)}
+.btn.main{background:var(--amber);border-color:var(--amber);color:var(--deep)}
+.btn.main:hover{background:var(--foam);border-color:var(--foam)}
+.swell{position:absolute;left:0;right:0;bottom:-1px;height:90px;background:var(--deep);
+  -webkit-mask:var(--wave) 0 0/900px 90px repeat-x;mask:var(--wave) 0 0/900px 90px repeat-x;animation:slosh 9s linear infinite}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem clamp(1.5rem,6vw,5rem);
+  background:linear-gradient(var(--deep),transparent)}
+nav b{font:900 1.4rem "Big Shoulders Display",sans-serif;letter-spacing:.04em}
+nav ul{display:flex;gap:1.5rem;list-style:none;padding:0}
+nav a{text-decoration:none;font-weight:500}
+nav a:hover{color:var(--amber)}
+
+/* Sections */
+section{padding:clamp(4rem,10vw,8rem) clamp(1.5rem,6vw,5rem);max-width:1200px;margin:auto}
+h2{font-size:clamp(3rem,8vw,6rem);text-transform:uppercase;margin-bottom:2.5rem}
+.releases{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
+.cover{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--sea);margin-bottom:1rem;border:1px solid #1d5f7d}
+.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.vids iframe{width:100%;aspect-ratio:16/9;border:0;background:var(--sea)}
+.band{width:100%;max-width:560px;margin-top:1.5rem;display:block;border:1px solid #1d5f7d}
+.rel h3{font-size:1.25rem}.rel p{color:var(--mist)}
+.shows{list-style:none;padding:0;border-top:1px solid #1d5f7d}
+.shows li{display:grid;grid-template-columns:9rem 1fr auto;gap:1rem;align-items:center;padding:1.2rem 0;border-bottom:1px solid #1d5f7d}
+.shows time{font:800 1.6rem "Big Shoulders Display",sans-serif;color:var(--amber)}
+.shows small{color:var(--mist);display:block}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.about p{max-width:60ch}
+.members{list-style:none;padding:0;font-size:1.15rem}
+.members li{padding:.6rem 0;border-bottom:1px solid #1d5f7d}
+.members span{color:var(--mist)}
+footer{text-align:center;padding:4rem 1.5rem;color:var(--mist)}
+footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem}
+@media(max-width:700px){
+  nav ul{gap:1rem;font-size:.95rem}
+  .about{grid-template-columns:1fr}
+  .shows li{grid-template-columns:1fr;gap:.3rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .wash{display:none}
+  .hero h1,.hero p,.hero .cta{animation:none;opacity:1;transform:none}
+  .swell{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="wash" aria-hidden="true"><div class="layer"></div><div class="layer"></div><div class="layer"></div></div>
+
+<nav>
+  <b>TSUNAMI WARNING</b>
+  <ul><li><a href="#music">Music</a></li><li><a href="#videos">Watch</a></li><li><a href="#shows">Shows</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul>
+</nav>
+
+<header class="hero">
+  <h1>Tsunami<span>Warning</span></h1>
+  <p>Indie rock from Merced, CA. By The Sea is out now on all platforms.</p>
+  <div class="cta"><a class="btn main" href="https://open.spotify.com/album/40X7gKeDRoqNjolIOb6pKO">Listen to By The Sea</a><a class="btn" href="#shows">See shows</a></div>
+  <div class="swell" aria-hidden="true"></div>
+</header>
+
+<main>
+<section id="music">
+  <h2>Music</h2>
+  <div class="releases">
+    <article class="rel"><img class="cover" src="https://lh7-us.googleusercontent.com/sitesv-images-rt/AMxu72s8mBiOSd2sO5vFsjTPOsNsiNE5VjGWQAq_gx4zihrwQ3v3ClAx2yuiVbDRSa9QV_4UVtYJeGEBS4u-APOSz8OhdbBdBnxs9IagfJQu6e64zN2btSv1HjDQYHI3rvo5xbDy8C3WxaNJBbKr3eOTwcL0vNW-anJyae--HF_DdOJAra739s5RC5gXsP0B2b4=w1280" alt="By The Sea cover art" loading="lazy" referrerpolicy="no-referrer"><h3>By The Sea</h3><p>EP · May 2026</p><a href="https://open.spotify.com/album/40X7gKeDRoqNjolIOb6pKO">Listen</a></article>
+    <article class="rel"><img class="cover" src="https://lh7-us.googleusercontent.com/sitesv-images-rt/AMxu72voimjpu8i8Zx26Nk0a9D9p_MRU317KKKZAsqXkfbBw07MzFHwqjJ2EnKMmLpxCQmqMoI1qqecAtuiwsNGkVAiZShGO8zrw8ycAAVIw26Zbg7xijtrXc0Cup1HbRF2Gy4p208z3wcP0hmoQ3JUcNCK-JqVgwBM6C3Z51S08EuagPE-duIVEZ0hGYug2=w1280" alt="High Tides cover art" loading="lazy" referrerpolicy="no-referrer"><h3>High Tides</h3><p>Album · 2025</p><a href="https://open.spotify.com/artist/2QBgW9PXVuxDVkSPlu98FF">Listen</a></article>
+    <article class="rel"><img class="cover" src="https://lh7-us.googleusercontent.com/sitesv-images-rt/AMxu72tOa4QxRx_eW29Omb-nEdNiJ0ejLpudwBKhCKfr2g0EO2MZ2bv_xCmNITr1qRD9wDo_mIcddPcp4X7yKmSFsBN-fK_55WcwDDYC2VIz5z0EPT017GlHuIhZfzqgyoF30u3wbp6HGE7N6sUBDUC7rDT1QynoM9tCdXo0rTaf-YTvAjn_ZbKuWn-_xbAC8t2px6pzRmckcePLmtY2yItQTC2e6pMLktWPIDtRuhFr-yE=w1280" alt="Say You Care cover art" loading="lazy" referrerpolicy="no-referrer"><h3>Say You Care</h3><p>Single</p><a href="https://open.spotify.com/artist/2QBgW9PXVuxDVkSPlu98FF">Listen</a></article>
+    <article class="rel"><img class="cover" src="https://lh7-us.googleusercontent.com/sitesv-images-rt/AMxu72tCU-3S7X2k-Y-pxVauDwfNsbj6NLGiABxY3Ef9M5res5i75BJMU3Q0PtAZ2HI0KBE7VXYkHsi_ZsAvtZl0jXn3Vtgl_0ybPAzbCUROyBPqJtd-chvkcMNWi4mx7uBPHV1sytu4dWJxHM1VR-dQaDBL-HTGXO6ySWcAStR5heVIeZV8lpWAfAdrBLlC2u8=w1280" alt="The Erotes cover art" loading="lazy" referrerpolicy="no-referrer"><h3>The Erotes</h3><p>Single</p><a href="https://open.spotify.com/artist/2QBgW9PXVuxDVkSPlu98FF">Listen</a></article>
+    <article class="rel"><img class="cover" src="https://lh7-us.googleusercontent.com/sitesv-images-rt/AMxu72vbG7YEGEl9thydDlh89-p5aQU4M1RQcN2eUEqneY2RBbCodS0RRQPrObsz9VRHehDPUNvFH27wj90s52S2SFe53b6bxtTGxP25sMbANMdaP_CcWDaNthUZt8NZGDzuy69BdSBbKfq4yJoYfRWZ9VJFSQYoaX9KDRFegxHGX-CLGI6z4dQ8x73wfNKjxW4=w1280" alt="Heartstrings cover art" loading="lazy" referrerpolicy="no-referrer"><h3>Heartstrings</h3><p>Single</p><a href="https://open.spotify.com/artist/2QBgW9PXVuxDVkSPlu98FF">Listen</a></article>
+  </div>
+</section>
+
+<section id="videos">
+  <h2>Watch</h2>
+  <div class="vids">
+    <iframe src="https://www.youtube-nocookie.com/embed/YTCd9PZenpQ" title="Tsunami Warning video 1" loading="lazy" allowfullscreen></iframe>
+    <iframe src="https://www.youtube-nocookie.com/embed/K4HvZwtBn3E" title="Tsunami Warning video 2" loading="lazy" allowfullscreen></iframe>
+    <iframe src="https://www.youtube-nocookie.com/embed/GQ9Ll04Q_m0" title="Tsunami Warning video 3" loading="lazy" allowfullscreen></iframe>
+    <iframe src="https://www.youtube-nocookie.com/embed/neu0pGEtnEk" title="Tsunami Warning video 4" loading="lazy" allowfullscreen></iframe>
+  </div>
+</section>
+
+<section id="shows">
+  <h2>Shows</h2>
+  <ul class="shows">
+    <li><time>Sep 26</time><div>San Luis Obispo, CA<small>$10 entry · music at 6 PM</small></div><a class="btn" href="https://www.eventbrite.com/e/san-luis-obispo-show-tickets-2002104451309">Tickets</a></li>
+    <li><time>Sep 27</time><div>Merced, CA<small>Details to come</small></div><span></span></li>
+  </ul>
+</section>
+
+<section id="about" class="about">
+  <div>
+    <h2>About</h2>
+    <p>Tsunami Warning is an indie rock band from Merced, California, playing all over the Central Valley and the Bay. Jack and Ziggy started the band in 2022, Hans joined in 2024 and Keiran came aboard on bass in 2025.</p>
+    <p style="margin-top:1rem">Their 2025 album High Tides and 2026 EP By The Sea were both recorded in pieces: drums and rhythm guitar live in a UC Merced practice room, then lead guitar and bass at home. By The Sea features synth and keyboard from ambient artist Jellous. The band has opened for Green Jelly and is now writing singles and a second album.</p>
+    <img class="band" src="https://lh7-us.googleusercontent.com/sitesv-images-rt/AMxu72tNfbwvHxArSvpLq4hfR0Z6CEk_TpLBVKimYwkMzS1h2xF2gOei-v_H3uyIqgW-9RH0Bcao3i0E21JaG1K9_8tiKEU4k8XeeVT5EnV6_Id6ABBD5wDApSV2-W1qihM5hxCP0QJSAh4sCRJoOxpuAEKKmrDiLi0cPYlv8H00lKaEOQHpNY-MXk0kTwWDSKLc8zWOHpCq0Vo_AsEQzWAVcykSNPFcX-bUUX_VKBJ5=w1280" alt="Tsunami Warning live" loading="lazy" referrerpolicy="no-referrer">
+    <small style="color:var(--mist)">Photo: @andreiwithani</small>
+  </div>
+  <ul class="members" style="align-self:start">
+    <li>Jack <span>Vocals &amp; rhythm guitar</span></li>
+    <li>Ziggy <span>Drums</span></li>
+    <li>Hans <span>Lead guitar &amp; backing vocals</span></li>
+    <li>Keiran <span>Bass</span></li>
+  </ul>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Bookings and press: <a href="mailto:tsunamiwarnin@gmail.com">tsunamiwarnin@gmail.com</a></p>
+</section>
+</main>
+
+<footer>
+  <div class="links"><a href="https://www.instagram.com/tsunamiwarningtheband">Instagram</a><a href="https://open.spotify.com/artist/2QBgW9PXVuxDVkSPlu98FF">Spotify</a><a href="https://music.apple.com/us/artist/tsunami-warning/1739964219">Apple Music</a><a href="https://www.youtube.com/@TsunamiWarnin">YouTube</a><a href="https://www.tiktok.com/@tsunamiwarningtheband">TikTok</a></div>
+  <p>&copy; 2026 Tsunami Warning</p>
+</footer>
+
+</body>
+</html>
