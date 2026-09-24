@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shows | Tsunami Warning</title>
-<meta name="description" content="Tsunami Warning: four friends from Merced, CA who play indie rock for fun.">
+<meta name="description" content="Tsunami Warning: indie rock from Merced, CA. What do you do in a Tsunami Warning? Get as high as possible.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;700;800&family=Permanent+Marker&family=Rubik+Spray+Paint&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@500;700;800&family=Permanent+Marker&family=Rubik+Dirt&display=swap" rel="stylesheet">
 <link rel="icon" href="images/logo.png">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -16,16 +16,38 @@
 <nav><a class="brand" href="index.html">TSUNAMI WARNING</a><ul><li><a href="index.html">Home</a></li><li><a href="music.html">Music</a></li><li><a href="shows.html" aria-current="page">Shows</a></li><li><a href="about.html">About</a></li></ul></nav>
 <main>
 <div class="page-head"><h1 class="in" style="--r:-2deg">Come see us</h1><span class="note in" style="--t:2s;margin-top:.5rem">low ticket prices. lower expectations.</span></div>
-<section><ul class="shows">
-<li class="ticket"><time>Sep 26</time><div><b>San Luis Obispo, CA</b><small>$10 at the door · music starts at 6 PM</small></div><a class="btn sm" href="https://www.eventbrite.com/e/san-luis-obispo-show-tickets-2002104451309">Tickets</a></li>
-<li class="ticket"><time>Sep 27</time><div><b>Merced, CA</b><small>Details coming soon. We're working on it. Really.</small></div><span></span></li>
-</ul></section>
+<section>
+<div class="search"><label class="note" for="q">Find a show</label><input id="q" type="search" placeholder="Search by city, venue or month..." autocomplete="off"></div>
+<ul class="shows" id="shows">
+<li class="ticket " data-s="san luis obispo slo ca california sep september 26"><time>Sep 26</time><div><b>San Luis Obispo, CA</b><small>$10 at the door · music starts at 6 PM</small></div><a class="btn sm" href="https://www.eventbrite.com/e/san-luis-obispo-show-tickets-2002104451309">Tickets</a></li>
+<li class="ticket " data-s="merced ca california sep september 27 home"><time>Sep 27</time><div><b>Merced, CA</b><small>Details coming soon. We're working on it. Really.</small></div><span class="tag">Soon</span></li>
+<li class="ticket past" data-s="modesto ca california jun june 26 past"><time>Jun 26</time><div><b>Modesto, CA</b><small>We played this one. It was great.</small></div><span class="tag">Played</span></li>
+<li class="ticket past" data-s="modesto ca california jun june 20 past"><time>Jun 20</time><div><b>Modesto, CA</b><small>We played this one too.</small></div><span class="tag">Played</span></li>
+</ul>
+<p id="none" class="note" role="status" hidden>No shows there yet. Want us to come? Email us!</p>
+</section>
 </main>
 <footer>
-<p class="note">thanks for scrolling. seriously.</p>
+<p class="note">stay high. we mean elevation.</p>
 <div class="links"><a href="https://www.instagram.com/tsunamiwarningtheband">Instagram</a><a href="https://open.spotify.com/artist/2QBgW9PXVuxDVkSPlu98FF">Spotify</a><a href="https://music.apple.com/us/artist/tsunami-warning/1739964219">Apple Music</a><a href="https://www.youtube.com/@TsunamiWarnin">YouTube</a><a href="https://www.tiktok.com/@tsunamiwarningtheband">TikTok</a></div>
 <p>Book us or say hi: <a href="mailto:tsunamiwarnin@gmail.com">tsunamiwarnin@gmail.com</a></p>
 <p>&copy; 2026 Tsunami Warning</p>
 </footer>
+<div id="scare" aria-hidden="true"><img src="images/foxy.png" alt="" onerror="this.remove();document.getElementById('foxsvg').style.display='block'"><svg id="foxsvg" viewBox="0 0 400 400" style="display:none" aria-hidden="true"><polygon points="55,175 85,5 195,90" fill="#b8330f"/><polygon points="345,175 315,5 205,90" fill="#b8330f"/><polygon points="80,150 95,50 150,95" fill="#ffa3c4"/><polygon points="320,150 305,50 250,95" fill="#ffa3c4"/><path d="M45 185Q200 55 355 185L325 325Q200 405 75 325Z" fill="#d9481c"/><path d="M105 255Q200 200 295 255L262 345Q200 385 138 345Z" fill="#f3e3c8"/><circle cx="130" cy="180" r="36" fill="#ffe600" stroke="#000" stroke-width="6"/><circle cx="270" cy="180" r="36" fill="#ffe600" stroke="#000" stroke-width="6"/><circle cx="130" cy="180" r="6" fill="#000"/><circle cx="270" cy="180" r="6" fill="#000"/><path d="M80 135L165 165M320 135L235 165" stroke="#000" stroke-width="10" stroke-linecap="round"/><ellipse cx="200" cy="255" rx="20" ry="13" fill="#111"/><path d="M135 285Q200 255 265 285Q200 375 135 285Z" fill="#1a0000"/><path d="M148 279l14 30 14-27zM178 274l14 34 14-34zM208 274l14 34 14-34zM236 279l14 27 14-30z" fill="#fff"/></svg></div>
+<script>
+(function(){
+var q=document.getElementById('q'),items=[].slice.call(document.querySelectorAll('#shows .ticket')),none=document.getElementById('none'),scare=document.getElementById('scare'),busy=false,ctx;
+function synth(){try{var t=ctx.currentTime,g=ctx.createGain();g.gain.setValueAtTime(.3,t);g.gain.exponentialRampToValueAtTime(.001,t+1.5);g.connect(ctx.destination);
+var o=ctx.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(950,t);o.frequency.exponentialRampToValueAtTime(170,t+1.4);o.connect(g);o.start(t);o.stop(t+1.5);
+var b=ctx.createBuffer(1,ctx.sampleRate*1.5,ctx.sampleRate),d=b.getChannelData(0),i;for(i=0;i<d.length;i++)d[i]=Math.random()*2-1;var n=ctx.createBufferSource();n.buffer=b;n.connect(g);n.start(t);}catch(e){}}
+function filter(){var terms=q.value.toLowerCase().trim().split(/\s+/).filter(Boolean),n=0;items.forEach(function(li){var ok=terms.every(function(t){return li.dataset.s.indexOf(t)>-1});li.hidden=!ok;if(ok)n++});none.hidden=n>0}
+function boom(){if(busy)return;busy=true;q.value='';filter();
+try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();ctx.resume()}catch(e){}
+scare.classList.add('on');var a=new Audio('sounds/foxy.mp3');a.volume=.8;var p=a.play();if(p&&p.catch)p.catch(synth);
+setTimeout(function(){scare.classList.remove('on');a.pause();busy=false},1900)}
+q.addEventListener('input',function(){if(q.value.toLowerCase().replace(/[^a-z]/g,'').indexOf('foxyjumpscare')>-1)boom();else filter()});
+scare.addEventListener('click',function(){scare.classList.remove('on')});
+})();
+</script>
 </body>
 </html>
