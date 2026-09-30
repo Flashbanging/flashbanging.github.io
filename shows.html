@@ -39,20 +39,38 @@
 <p>Book us or say hi: <a href="mailto:tsunamiwarnin@gmail.com">tsunamiwarnin@gmail.com</a></p>
 <p>&copy; 2026 Tsunami Warning</p>
 </footer>
-<div id="scare" aria-hidden="true"><img src="images/foxy.png" alt="" onerror="this.remove();document.getElementById('foxsvg').style.display='block'"><svg id="foxsvg" viewBox="0 0 400 400" style="display:none" aria-hidden="true"><polygon points="55,175 85,5 195,90" fill="#b8330f"/><polygon points="345,175 315,5 205,90" fill="#b8330f"/><polygon points="80,150 95,50 150,95" fill="#ffa3c4"/><polygon points="320,150 305,50 250,95" fill="#ffa3c4"/><path d="M45 185Q200 55 355 185L325 325Q200 405 75 325Z" fill="#d9481c"/><path d="M105 255Q200 200 295 255L262 345Q200 385 138 345Z" fill="#f3e3c8"/><circle cx="130" cy="180" r="36" fill="#ffe600" stroke="#000" stroke-width="6"/><circle cx="270" cy="180" r="36" fill="#ffe600" stroke="#000" stroke-width="6"/><circle cx="130" cy="180" r="6" fill="#000"/><circle cx="270" cy="180" r="6" fill="#000"/><path d="M80 135L165 165M320 135L235 165" stroke="#000" stroke-width="10" stroke-linecap="round"/><ellipse cx="200" cy="255" rx="20" ry="13" fill="#111"/><path d="M135 285Q200 255 265 285Q200 375 135 285Z" fill="#1a0000"/><path d="M148 279l14 30 14-27zM178 274l14 34 14-34zM208 274l14 34 14-34zM236 279l14 27 14-30z" fill="#fff"/></svg></div>
+<div id="wavesurprise" aria-hidden="true">
+  <div class="wash" id="wash2"><div class="layer"></div><div class="layer"></div><div class="layer"></div></div>
+  <div id="spotifybox"><iframe id="spotifyframe" src="" width="100%" height="152" frameborder="0" allow="autoplay; encrypted-media; clipboard-write" loading="lazy"></iframe></div>
+</div>
 <script>
 (function(){
-var q=document.getElementById('q'),items=[].slice.call(document.querySelectorAll('#shows .ticket')),none=document.getElementById('none'),scare=document.getElementById('scare'),busy=false,ctx;
-function synth(){try{var t=ctx.currentTime,g=ctx.createGain();g.gain.setValueAtTime(.3,t);g.gain.exponentialRampToValueAtTime(.001,t+1.5);g.connect(ctx.destination);
-var o=ctx.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(950,t);o.frequency.exponentialRampToValueAtTime(170,t+1.4);o.connect(g);o.start(t);o.stop(t+1.5);
-var b=ctx.createBuffer(1,ctx.sampleRate*1.5,ctx.sampleRate),d=b.getChannelData(0),i;for(i=0;i<d.length;i++)d[i]=Math.random()*2-1;var n=ctx.createBufferSource();n.buffer=b;n.connect(g);n.start(t);}catch(e){}}
+var q=document.getElementById('q'),items=[].slice.call(document.querySelectorAll('#shows .ticket')),none=document.getElementById('none');
 function filter(){var terms=q.value.toLowerCase().trim().split(/\s+/).filter(Boolean),n=0;items.forEach(function(li){var ok=terms.every(function(t){return li.dataset.s.indexOf(t)>-1});li.hidden=!ok;if(ok)n++});none.hidden=n>0}
-function boom(){if(busy)return;busy=true;q.value='';filter();
-try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();ctx.resume()}catch(e){}
-scare.classList.add('on');var a=new Audio('sounds/foxy.mp3');a.volume=.8;var p=a.play();if(p&&p.catch)p.catch(synth);
-setTimeout(function(){scare.classList.remove('on');a.pause();busy=false},1900)}
-q.addEventListener('input',function(){if(q.value.toLowerCase().replace(/[^a-z]/g,'').indexOf('foxyjumpscare')>-1)boom();else filter()});
-scare.addEventListener('click',function(){scare.classList.remove('on')});
+
+/* secret: type "wavewarning" in the search box to get washed over and dropped into a random song */
+var TRIGGER='wavewarning';
+var TRACKS=[
+  'https://open.spotify.com/embed/album/40X7gKeDRoqNjolIOb6pKO', /* By The Sea (EP) */
+  'https://open.spotify.com/embed/artist/2QBgW9PXVuxDVkSPlu98FF', /* High Tides / singles - artist page */
+  'https://open.spotify.com/embed/artist/2QBgW9PXVuxDVkSPlu98FF'
+];
+var wash=document.getElementById('wash2'),box=document.getElementById('spotifybox'),frame=document.getElementById('spotifyframe'),busy=false;
+function surprise(){
+  if(busy)return;busy=true;q.value='';filter();
+  wash.style.animation='none';void wash.offsetWidth;wash.style.animation='';
+  [].forEach.call(wash.children,function(l){l.style.animation='none';void l.offsetWidth;l.style.animation=''});
+  var pick=TRACKS[Math.floor(Math.random()*TRACKS.length)];
+  setTimeout(function(){
+    frame.src=pick+'?utm_source=generator&autoplay=1';
+    box.classList.add('show');
+  },1900);
+  setTimeout(function(){busy=false},2700);
+}
+q.addEventListener('input',function(){
+  if(q.value.toLowerCase().replace(/[^a-z]/g,'').indexOf(TRIGGER)>-1){surprise();}
+  else{filter();}
+});
 })();
 </script>
 </body>
