@@ -102,9 +102,23 @@ footer .links a:hover{background:var(--lime)}
 
 #wavesurprise{position:fixed;inset:0;z-index:300;pointer-events:none}
 #wavesurprise .wash{position:fixed}
-#spotifybox{position:fixed;left:50%;bottom:-200px;transform:translateX(-50%);width:min(92vw,420px);opacity:0;pointer-events:none;transition:bottom .6s cubic-bezier(.2,.8,.3,1),opacity .6s}
-#spotifybox.show{bottom:1.5rem;opacity:1;pointer-events:auto}
-#spotifybox iframe{display:block;border-radius:14px;box-shadow:8px 8px 0 var(--royal,var(--purple,#8E00FF))}
+
+.now-playing{max-width:420px;margin:1.8rem 0 0;transform:rotate(-1.5deg)}
+.now-playing .card{padding:.6rem}
+.now-playing .tag{background:var(--lime);color:var(--ink);display:inline-block;margin-bottom:.5rem}
+.now-playing iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:6px}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2.4rem}
+.frame{position:relative;transition:transform .2s}
+.frame:nth-child(3n+1){transform:rotate(-2deg)}
+.frame:nth-child(3n+2){transform:rotate(1.6deg);box-shadow:8px 8px 0 var(--crimson)}
+.frame:nth-child(3n){transform:rotate(-1deg);box-shadow:8px 8px 0 var(--cyan,var(--lime))}
+.frame:hover{transform:rotate(0) scale(1.02)}
+.frame::before{content:"";position:absolute;top:-14px;left:50%;width:90px;height:26px;background:rgba(220,244,122,.9);border:2px solid var(--ink);transform:translateX(-50%) rotate(-4deg);z-index:2}
+.frame img{display:block;width:100%;aspect-ratio:1;object-fit:contain;background:#fff;border:3px solid var(--ink);margin-bottom:.8rem}
+.frame .credit{font-weight:800}
+.frame .credit a{color:var(--pink);text-decoration:none;border-bottom:2px dotted var(--pink)}
+.frame .credit a:hover{color:var(--lime);border-color:var(--lime)}
 
 @media(max-width:800px){.hero{grid-template-columns:1fr}.hero .logo{grid-column:1;grid-row:auto;order:-1;width:min(75%,300px);margin-bottom:1.5rem}.hero::before{display:none}}
 @media(max-width:700px){.brand{display:none}nav{justify-content:center}.about{grid-template-columns:1fr}.ticket{grid-template-columns:1fr;gap:.5rem}.ticket time{border:0;padding:0}}
