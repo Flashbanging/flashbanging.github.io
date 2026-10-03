@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>(function(){try{if(sessionStorage.getItem('tw-wave')){document.documentElement.className+=' wave-seen'}else{sessionStorage.setItem('tw-wave','1')}}catch(e){}})();</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shows | Tsunami Warning</title>
 <meta name="description" content="Tsunami Warning: indie rock from Merced, CA. What do you do in a Tsunami Warning? Get as high as possible.">
@@ -39,32 +41,26 @@
 <p>Book us or say hi: <a href="mailto:tsunamiwarnin@gmail.com">tsunamiwarnin@gmail.com</a></p>
 <p>&copy; 2026 Tsunami Warning</p>
 </footer>
-<div id="wavesurprise" aria-hidden="true">
-  <div class="wash" id="wash2"><div class="layer"></div><div class="layer"></div><div class="layer"></div></div>
-</div>
 <script>
 (function(){
 var q=document.getElementById('q'),items=[].slice.call(document.querySelectorAll('#shows .ticket')),none=document.getElementById('none');
 function filter(){var terms=q.value.toLowerCase().trim().split(/\s+/).filter(Boolean),n=0;items.forEach(function(li){var ok=terms.every(function(t){return li.dataset.s.indexOf(t)>-1});li.hidden=!ok;if(ok)n++});none.hidden=n>0}
 
-/* secret: type "WhoMe?" in the search box to get washed over and dropped into a random song.
-   The new tab is opened the instant the trigger is typed (same click/keystroke as the user's
-   input), because browsers only allow a tab to auto-play sound if it's opened directly from a
-   real user action - not from a delayed timer. That's why the last version's autoplay silently
-   failed: it waited for the wave to finish first. */
+/* secret: type "WhoMe?" in the search box to get dropped into a random song, no wave this time -
+   just the one on first load. The tab opens the instant the trigger is typed (same keystroke as
+   the user's input), because browsers only allow a tab to auto-play sound when it's opened
+   directly from a real user action, not from a delayed timer. */
 var TRIGGER='whome';
 var TRACKS=[
   'https://open.spotify.com/embed/album/40X7gKeDRoqNjolIOb6pKO?utm_source=generator&autoplay=1', /* By The Sea (EP) */
   'https://open.spotify.com/embed/artist/2QBgW9PXVuxDVkSPlu98FF?utm_source=generator&autoplay=1' /* High Tides / singles - artist page */
 ];
-var wash=document.getElementById('wash2'),busy=false;
+var busy=false;
 function surprise(){
   if(busy)return;busy=true;q.value='';filter();
   var pick=TRACKS[Math.floor(Math.random()*TRACKS.length)];
   window.open(pick,'_blank'); /* opened synchronously so the browser allows autoplay */
-  wash.style.animation='none';void wash.offsetWidth;wash.style.animation='';
-  [].forEach.call(wash.children,function(l){l.style.animation='none';void l.offsetWidth;l.style.animation=''});
-  setTimeout(function(){busy=false},2700);
+  setTimeout(function(){busy=false},1200);
 }
 q.addEventListener('input',function(){
   if(q.value.toLowerCase().replace(/[^a-z]/g,'').indexOf(TRIGGER)>-1){surprise();}
