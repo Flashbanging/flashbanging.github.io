@@ -64,11 +64,16 @@ h2::after{content:"";display:block;height:14px;width:min(260px,70%);background:v
 .rel{position:relative;transition:transform .2s}
 .rel:nth-child(odd){transform:rotate(-2deg)}.rel:nth-child(even){transform:rotate(1.8deg);box-shadow:7px 7px 0 var(--crimson)}
 .rel:hover{transform:rotate(0) scale(1.03)}
-.rel::before{content:"";position:absolute;top:-14px;left:50%;width:90px;height:26px;background:rgba(220,244,122,.9);border:2px solid var(--ink);transform:translateX(-50%) rotate(-4deg)}
-.art{position:relative;aspect-ratio:1;display:grid;place-items:center;text-align:center;padding:1rem;margin-bottom:.9rem;border:3px solid var(--ink);background:repeating-linear-gradient(-60deg,var(--pink) 0 3px,var(--navy) 3px 12px);font:400 1.6rem/1 "Permanent Marker",cursive}
-.art span{background:var(--lime);border:3px solid var(--ink);padding:.3rem .6rem;transform:rotate(-3deg)}
+.tape{position:absolute;top:-16px;left:50%;transform:translateX(-50%) rotate(-4deg);z-index:2;max-width:94%;padding:.25rem .9rem;border:2px solid var(--ink);font:400 1.05rem/1.1 "Permanent Marker",cursive;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rel:nth-child(4n+1) .tape{background:var(--lime);color:var(--ink)}
+.rel:nth-child(4n+2) .tape{background:var(--pink);color:var(--ink)}
+.rel:nth-child(4n+3) .tape{background:var(--crimson);color:var(--paper)}
+.rel:nth-child(4n+4) .tape{background:var(--royal);color:var(--paper)}
+.art{position:relative;aspect-ratio:1;overflow:hidden;margin-bottom:.9rem;border:3px solid var(--ink);background:repeating-linear-gradient(-60deg,var(--pink) 0 3px,var(--navy) 3px 12px)}
+.art img{display:block;width:100%;height:100%;object-fit:cover}
+.art.noart{display:grid;place-items:center}
 .art.wide{aspect-ratio:3/2;margin:1.5rem 0 .3rem}
-.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.art.noart::after{content:attr(data-label);font:400 1.5rem/1.2 "Permanent Marker",cursive;color:var(--paper);text-align:center;padding:1rem}
 .rel h3{font-size:1.4rem}.rel p{font-weight:700;opacity:.65}
 .rel .links{display:flex;gap:.6rem;margin-top:.7rem;flex-wrap:wrap}
 .vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
@@ -102,9 +107,9 @@ footer .links{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margi
 footer .links a{background:var(--paper);color:var(--ink);font-weight:800;text-decoration:none;border-radius:999px;padding:.1rem 1rem}
 footer .links a:hover{background:var(--lime)}
 
-.now-playing{width:min(100%,420px);transform:rotate(-2deg)}
-.now-playing .card{padding:.6rem}
-.now-playing .tag{background:var(--lime);color:var(--ink);display:inline-block;margin-bottom:.5rem;font-size:.9rem}
+.now-playing{position:absolute;top:.5rem;right:clamp(.5rem,4vw,2.5rem);width:min(320px,34vw);transform:rotate(5deg);z-index:4}
+.now-playing .card{padding:.5rem}
+.now-playing .tag{background:var(--lime);color:var(--ink);display:inline-block;margin-bottom:.5rem;font-size:.85rem}
 .now-playing iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:6px}
 
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2.4rem}
@@ -119,6 +124,6 @@ footer .links a:hover{background:var(--lime)}
 .frame .credit a{color:var(--pink);text-decoration:none;border-bottom:2px dotted var(--pink)}
 .frame .credit a:hover{color:var(--lime);border-color:var(--lime)}
 
-@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-right{grid-column:1;grid-row:auto;order:-1;margin-bottom:1.5rem}.hero .logo{width:min(60%,220px)}.now-playing{width:100%;max-width:360px;transform:none}}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-right{grid-column:1;grid-row:auto;order:-1;margin-bottom:1rem}.hero .logo{width:min(60%,220px)}.now-playing{position:static;width:100%;max-width:360px;margin:0 auto 1.5rem;order:-2;transform:none}}
 @media(max-width:700px){.brand{display:none}nav{justify-content:center}.about{grid-template-columns:1fr}.ticket{grid-template-columns:1fr;gap:.5rem}.ticket time{border:0;padding:0}}
 @media(prefers-reduced-motion:reduce){.wash{display:none}.in{animation:none;opacity:1;transform:rotate(var(--r,0deg))}.track,.logo{animation:none}}

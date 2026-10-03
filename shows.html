@@ -15,12 +15,17 @@
 </head>
 <body>
 <div class="wash" aria-hidden="true"><div class="layer"></div><div class="layer"></div><div class="layer"></div></div>
-<nav><a class="brand" href="index.html">TSUNAMI WARNING</a><ul><li><a href="index.html">Home</a></li><li><a href="music.html">Music</a></li><li><a href="shows.html" aria-current="page">Shows</a></li><li><a href="about.html">About</a></li><li><a href="fanart.html">Fan Art</a></li></ul></nav>
+<nav><a class="brand" href="index.html">TSUNAMI WARNING</a><ul><li><a href="index.html">Home</a></li><li><a href="music.html">Music</a></li><li><a href="shows.html" aria-current="page">Shows</a></li><li><a href="fanart.html">Fan Art</a></li><li><a href="about.html">About</a></li></ul></nav>
 <main>
 <div class="page-head"><h1 class="in" style="--r:-2deg">Come see us</h1><span class="note in" style="--t:2s;margin-top:.5rem">low ticket prices. lower expectations.</span></div>
 <section>
 <div class="search"><label class="note" for="q">Find a show</label><input id="q" type="search" placeholder="Search by city, venue or month..." autocomplete="off"></div>
-<ul class="shows" id="shows">
+<p class="note" style="font-size:1.2rem;margin-bottom:.8rem">Upcoming</p>
+<ul class="shows" id="shows-upcoming">
+<li class="ticket" data-s="modesto ca california nov november 7 queen bean"><time>Nov 7</time><div><b>Modesto, CA</b><small>@ Queen Bean</small></div><span class="tag">Upcoming</span></li>
+</ul>
+<p class="note" style="font-size:1.2rem;margin:2rem 0 .8rem">Played</p>
+<ul class="shows" id="shows-past">
 <li class="ticket past" data-s="modesto ca california jun june 28 queen bean"><time>Jun 28</time><div><b>Modesto, CA</b><small>@ Queen Bean</small></div><span class="tag">Played</span></li>
 <li class="ticket past" data-s="fresno ca california jul july 2 setlist"><time>Jul 2</time><div><b>Fresno, CA</b><small>@ Setlist</small></div><span class="tag">Played</span></li>
 <li class="ticket past" data-s="merced ca california jul july 17 the rack"><time>Jul 17</time><div><b>Merced, CA</b><small>@ The Rack</small></div><span class="tag">Played</span></li>
@@ -31,7 +36,6 @@
 <li class="ticket past" data-s="san luis obispo slo ca california sep september 26"><time>Sep 26</time><div><b>San Luis Obispo, CA</b><small>@ SLO · out of valley</small></div><span class="tag">Played</span></li>
 <li class="ticket past" data-s="merced ca california sep september 27 playback"><time>Sep 27</time><div><b>Merced, CA</b><small>@ Playback</small></div><span class="tag">Played</span></li>
 <li class="ticket past" data-s="merced ca california sep september 29 yams"><time>Sep 29</time><div><b>Merced, CA</b><small>@ Yams</small></div><span class="tag">Played</span></li>
-<li class="ticket" data-s="modesto ca california nov november 7 queen bean"><time>Nov 7</time><div><b>Modesto, CA</b><small>@ Queen Bean</small></div><span class="tag">Upcoming</span></li>
 </ul>
 <p id="none" class="note" role="status" hidden>No shows there yet. Want us to come? Email us!</p>
 </section>
@@ -44,7 +48,7 @@
 </footer>
 <script>
 (function(){
-var q=document.getElementById('q'),items=[].slice.call(document.querySelectorAll('#shows .ticket')),none=document.getElementById('none');
+var q=document.getElementById('q'),items=[].slice.call(document.querySelectorAll('#shows-upcoming .ticket, #shows-past .ticket')),none=document.getElementById('none');
 function filter(){var terms=q.value.toLowerCase().trim().split(/\s+/).filter(Boolean),n=0;items.forEach(function(li){var ok=terms.every(function(t){return li.dataset.s.indexOf(t)>-1});li.hidden=!ok;if(ok)n++});none.hidden=n>0}
 
 /* secret: type "WhoMe?" in the search box to get dropped into a random song, no wave this time -
