@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="wash" aria-hidden="true"><div class="layer"></div><div class="layer"></div><div class="layer"></div></div>
-<nav><a class="brand" href="index.html">TSUNAMI WARNING</a><ul><li><a href="index.html">Home</a></li><li><a href="music.html">Music</a></li><li><a href="shows.html" aria-current="page">Shows</a></li><li><a href="fanart.html">Fan Art</a></li><li><a href="about.html">About</a></li></ul></nav>
+<nav><a class="brand" href="index.html">TSUNAMI WARNING</a><ul><li><a href="index.html">Home</a></li><li><a href="music.html">Music</a></li><li><a href="shows.html" aria-current="page">Shows</a></li><li><a href="fanart.html">Fan Art</a></li><li><a href="about.html">About</a></li><li><a href="epk.html">EPK</a></li></ul></nav>
 <main>
 <div class="page-head"><h1 class="in" style="--r:-2deg">Come see us</h1><span class="note in" style="--t:2s;margin-top:.5rem">low ticket prices. lower expectations.</span></div>
 <section>
@@ -51,6 +51,14 @@
 <p>Book us or say hi: <a href="mailto:tsunamiwarnin@gmail.com">tsunamiwarnin@gmail.com</a></p>
 <p>&copy; 2026 Tsunami Warning</p>
 </footer>
+<dialog class="player" id="player" aria-label="Keiran's video">
+<div class="card">
+<span class="tape">Keiran</span>
+<div id="player-stage"></div>
+<p class="note" id="player-hint" hidden>your browser muted it. hit the speaker to unmute.</p>
+<button type="button" class="btn sm" id="player-close">Close</button>
+</div>
+</dialog>
 <script>
 (function(){
 var q=document.getElementById('q'),items=[].slice.call(document.querySelectorAll('#shows-upcoming .ticket, #shows-past .ticket')),none=document.getElementById('none');
@@ -72,8 +80,69 @@ function surprise(){
   window.open(pick,'_blank'); /* opened synchronously so the browser allows autoplay */
   setTimeout(function(){busy=false},1200);
 }
+/* more secrets: type a name (caps, spaces and punctuation don't matter) and it opens that link in a
+   new tab. These have to match the whole box exactly, so short ones like "ash" can't go off while
+   someone is searching for a city. "keiran" is the exception: it plays his video right on the page
+   in a pop-up player instead of sending you off to Google Drive. */
+var JELLOUS='https://open.spotify.com/artist/70YHl735q704xzPztsEdbz';
+var CODES={
+  pullingpunches:'https://drive.google.com/file/d/1PIj805ZJlP5mX4SKFz5arS1oQ-ydqz6U/view?usp=sharing',
+  ash:'https://open.spotify.com/artist/3eT8a7d4OllfdkY2629liv',
+  jeallous:JELLOUS,jellous:JELLOUS,jealous:JELLOUS, /* every way of spelling it */
+  jack:'https://soundcloud.com/tsuinamiwarning',
+  hans:'https://open.spotify.com/artist/6nnPoQKOd2gycNtMBZnYoG',
+  keiran:playKeiran
+};
+function fire(k){
+  if(busy)return;busy=true;q.value='';filter();
+  var go=CODES[k];
+  if(typeof go==='function'){go()}
+  else{var w=window.open(go,'_blank');if(w)w.opener=null} /* opened synchronously, same as above */
+  setTimeout(function(){busy=false},1200);
+}
+
+/* Keiran's video. Tries, in order: videos/keiran.mp4 on this site (optional - drop a copy in a
+   videos folder and it plays from there first), then a direct stream from Google Drive, then
+   Drive's own player, which works everywhere but needs one click on play. */
+var KEIRAN_ID='1iN4c97KxC7Y84EsFjyk9IfrR5y96_oi6';
+var KEIRAN_SRCS=['videos/keiran.mp4','https://drive.usercontent.google.com/download?id='+KEIRAN_ID+'&export=download&confirm=t'];
+var dlg=document.getElementById('player'),stage=document.getElementById('player-stage'),hint=document.getElementById('player-hint');
+dlg.addEventListener('close',function(){stage.innerHTML='';hint.hidden=true}); /* removing the video stops it */
+dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+document.getElementById('player-close').addEventListener('click',function(){dlg.close()});
+function playKeiran(){
+  if(typeof dlg.showModal!=='function'){window.open('https://drive.google.com/file/d/'+KEIRAN_ID+'/view','_blank');return}
+  var i=0,v=document.createElement('video');
+  v.controls=true;v.playsInline=true;v.preload='auto';
+  function start(){
+    var p=v.play();
+    if(p&&p.catch)p.catch(function(err){
+      if(err&&err.name==='NotAllowedError'){v.muted=true;hint.hidden=false;v.play().catch(function(){})} /* browser wants it muted */
+    });
+  }
+  function next(){
+    if(i<KEIRAN_SRCS.length){v.src=KEIRAN_SRCS[i++];start()}
+    else{
+      var f=document.createElement('iframe');
+      f.src='https://drive.google.com/file/d/'+KEIRAN_ID+'/preview';f.allow='autoplay; fullscreen';f.allowFullscreen=true;f.title="Keiran's video";
+      stage.innerHTML='';stage.appendChild(f);
+    }
+  }
+  v.addEventListener('error',function(){if(v.readyState<2)next()}); /* only if it never got going */
+  v.addEventListener('loadedmetadata',function(){ /* fit phone videos (portrait) without huge black bars */
+    if(!v.videoWidth)return;
+    v.style.aspectRatio=v.videoWidth+'/'+v.videoHeight;
+    if(v.videoHeight>v.videoWidth){v.style.width='auto';v.style.height='70vh'}
+  });
+  stage.innerHTML='';hint.hidden=true;stage.appendChild(v);
+  dlg.showModal();
+  next();
+}
+
 q.addEventListener('input',function(){
-  if(q.value.toLowerCase().replace(/[^a-z]/g,'').indexOf(TRIGGER)>-1){surprise();}
+  var k=q.value.toLowerCase().replace(/[^a-z]/g,'');
+  if(k.indexOf(TRIGGER)>-1){surprise();}
+  else if(Object.prototype.hasOwnProperty.call(CODES,k)){fire(k);}
   else{filter();}
 });
 })();
