@@ -150,18 +150,19 @@ button.btn{font-family:inherit;line-height:1.6;cursor:pointer}
 .discog span{display:block;font-weight:700;opacity:.65}
 .discog p{margin-top:.5rem;font-size:1rem;line-height:1.4}
 .discog .links{display:flex;gap:.6rem;margin-top:.8rem;flex-wrap:wrap}
-.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:2.2rem}
-.shots.plots{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.photos{display:flex;gap:2.2rem;align-items:flex-start}
+.photos>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2.2rem}
 .shot{position:relative}
 .shot::before{content:"";position:absolute;top:-14px;left:50%;width:90px;height:26px;background:rgba(220,244,122,.9);border:2px solid var(--ink);transform:translateX(-50%) rotate(-4deg);z-index:2}
 .shot:nth-child(odd){transform:rotate(-1.5deg)}
 .shot:nth-child(even){transform:rotate(1.2deg);box-shadow:7px 7px 0 var(--crimson)}
 .shot a{display:block}
-.shot .art{margin:0;aspect-ratio:3/2}
-.shot figcaption{font-weight:800;margin-top:.7rem}
-.plots .art{aspect-ratio:4/3}
-.plots .art:not(.noart){background:#fff}
-.plots img{object-fit:contain}
+.shot .art{margin:0;aspect-ratio:auto}
+.shot .art img{height:auto}
+.shot.tall .art{aspect-ratio:4/5}
+.shot.tall .art img{height:100%;object-position:50% 38%}
+.plot{display:block;max-width:720px}
+.plot img{display:block;width:100%;height:auto}
 .played{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem}
 .played .card:nth-child(odd){transform:rotate(-1deg)}
 .played .card:nth-child(even){transform:rotate(1deg);box-shadow:7px 7px 0 var(--crimson)}
@@ -176,6 +177,7 @@ button.btn{font-family:inherit;line-height:1.6;cursor:pointer}
 .book .note{color:var(--crimson);margin-bottom:.6rem}
 .book p{font-weight:700}
 .book p+p{margin-top:1rem}
+@media(max-width:700px){.photos{flex-direction:column;align-items:stretch}}
 
 @media(max-width:800px){.hero{grid-template-columns:1fr}.hero-right{grid-column:1;grid-row:auto;order:-1;margin-bottom:1rem}.hero .logo{width:min(60%,220px)}.now-playing{position:static;width:100%;max-width:420px;margin:0 auto 1.5rem;order:-2;transform:none}}
 @media(max-width:700px){.brand{display:none}nav{justify-content:center}.about{grid-template-columns:1fr}.ticket{grid-template-columns:1fr;gap:.5rem}.ticket time{border:0;padding:0}}
