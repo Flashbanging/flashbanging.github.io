@@ -169,6 +169,8 @@ button.btn{font-family:inherit;line-height:1.6;cursor:pointer}
 .played h3{font-size:1.5rem;margin-bottom:.6rem}
 .played ul{padding-left:1.2rem}
 .played li+li{margin-top:.3rem}
+.played li a{font-weight:800;text-decoration:underline wavy var(--crimson);text-decoration-thickness:2px;text-underline-offset:.2em}
+.played li a:hover{background:var(--lime);text-decoration-color:var(--ink)}
 .chips{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.8rem}
 .chips li{background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:999px;box-shadow:3px 3px 0 var(--royal);padding:.1rem 1rem;font-weight:800}
 .chips li:nth-child(3n+2){box-shadow:3px 3px 0 var(--pink)}
