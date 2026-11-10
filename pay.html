@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>(function(){try{if(sessionStorage.getItem('tw-wave')){document.documentElement.className+=' wave-seen'}else{sessionStorage.setItem('tw-wave','1')}}catch(e){}})();</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Pay the band | Tsunami Warning</title>
+<meta name="description" content="Ways to pay or tip Tsunami Warning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@500;700;800&family=Permanent+Marker&family=Rubik+Dirt&display=swap" rel="stylesheet">
+<link rel="icon" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wash" aria-hidden="true"><div class="layer"></div><div class="layer"></div><div class="layer"></div></div>
+<nav><a class="brand" href="index.html">TSUNAMI WARNING</a></nav>
+<main>
+<div class="page-head"><h1 class="in" style="--r:-2deg">Pay the band</h1><span class="note in" style="--t:2s;margin-top:.5rem">merch, tips, whatever you feel like sending. thank you!!</span></div>
+<section>
+<ul class="paylist" id="pay"></ul>
+<p class="note" id="soon" hidden>Payment options are coming soon. Ask us at the merch table!</p>
+<noscript><p>This page needs JavaScript to show the payment options. Email <a href="mailto:tsunamiwarnin@gmail.com">tsunamiwarnin@gmail.com</a> and we'll sort it out.</p></noscript>
+<p class="paynote">Check the name on the screen before you hit send. Questions? <a href="mailto:tsunamiwarnin@gmail.com">tsunamiwarnin@gmail.com</a></p>
+</section>
+</main>
+<footer>
+<p class="note">Stay goated and LOVE ON LOVE!</p>
+<div class="links"><a href="https://www.instagram.com/tsunamiwarningtheband">Instagram</a><a href="https://open.spotify.com/artist/2QBgW9PXVuxDVkSPlu98FF">Spotify</a><a href="https://music.apple.com/us/artist/tsunami-warning/1739964219">Apple Music</a><a href="https://www.youtube.com/@TsunamiWarnin">YouTube</a><a href="https://www.tiktok.com/@tsunamiwarningtheband">TikTok</a></div>
+<p>&copy; 2026 Tsunami Warning</p>
+</footer>
+<script>
+(function(){
+/* ---- EDIT THIS PART --------------------------------------------------------
+   Fill in the ones you use and leave the rest as '' (empty ones don't show up).
+   For Cash App, Venmo and PayPal you can type the handle OR paste the full link. */
+var PAY={
+  zelle:'415-760-3623',   /* the email or phone number your Zelle is set up with */
+  zelleName:'Ziggy Hua',  /* optional: the name that shows up in the bank app, so people can double check. '' hides it */
+  cashapp:'tsuzune',      /* your $cashtag, like 'tsunamiwarning' (the $ is optional) */
+  venmo:'TsunamiWarning', /* your Venmo username, like 'tsunamiwarning' (the @ is optional) */
+  paypal:'https://www.paypal.com/qrcodes/p2pqrc/69XYS35NHARGQ', /* the end of your paypal.me link, OR the full link PayPal gave you */
+  crypto:[     /* one line per coin. Leave address '' to hide it. */
+    {coin:'Bitcoin',ticker:'BTC',network:'Bitcoin',address:''},
+    {coin:'Ethereum',ticker:'ETH',network:'Ethereum',address:''},
+    {coin:'USD Coin',ticker:'USDC',network:'Ethereum',address:''},
+    {coin:'Solana',ticker:'SOL',network:'Solana',address:''}
+  ]
+};
+/* ---- END -------------------------------------------------------------------- */
+
+var list=document.getElementById('pay'),count=0;
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function clean(v){return String(v==null?'':v).trim()}
+function isUrl(v){return /^https?:\/\//i.test(v)}
+function handle(v){return v.replace(/^[@$\/]+/,'')}
+function copy(txt,done){
+  function fallback(){
+    var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+    var ok=false;try{ok=document.execCommand('copy')}catch(e){}
+    document.body.removeChild(ta);done(ok);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){done(true)},fallback)}else{fallback()}
+}
+function copyRow(value){
+  var row=el('div','copyrow'),code=el('code','',value),b=el('button','btn sm','Copy');b.type='button';
+  b.addEventListener('click',function(){copy(value,function(ok){b.textContent=ok?'Copied!':'Select + copy';setTimeout(function(){b.textContent='Copy'},1800)})});
+  row.appendChild(code);row.appendChild(b);return row;
+}
+function addItem(node){var li=el('li');li.appendChild(node);list.appendChild(li);count++}
+function linkItem(name,sub,href){
+  var a=el('a','paybtn card');a.href=href;a.target='_blank';a.rel='noopener';
+  a.appendChild(el('b','',name));a.appendChild(el('span','',sub));addItem(a);
+}
+function panelItem(name,sub,build){
+  var d=el('details','paybtn card'),s=el('summary');
+  s.appendChild(el('b','',name));s.appendChild(el('span','',sub));d.appendChild(s);build(d);addItem(d);
+}
+function handleItem(name,raw,base,prefix,tail){
+  var v=clean(raw);if(!v)return;
+  if(isUrl(v)){linkItem(name,'Tap to open',v);return}
+  var h=handle(v);if(!h)return;
+  linkItem(name,prefix+h+(tail||''),base+encodeURIComponent(h));
+}
+
+var z=clean(PAY.zelle);
+if(z)panelItem('Zelle','Tap to see where to send',function(d){
+  d.appendChild(el('p','hint','Open your bank’s app, choose Zelle, and send to:'));
+  d.appendChild(copyRow(z));
+  var zn=clean(PAY.zelleName);
+  if(zn)d.appendChild(el('p','hint','It should show up as '+zn+'.'));
+});
+handleItem('Cash App',PAY.cashapp,'https://cash.app/$','$');
+handleItem('Venmo',PAY.venmo,'https://venmo.com/u/','@');
+handleItem('PayPal',PAY.paypal,'https://paypal.me/','paypal.me/');
+var coins=(PAY.crypto||[]).filter(function(c){return c&&clean(c.address)});
+if(coins.length)panelItem('Crypto','Tap to pick a coin',function(d){
+  coins.forEach(function(c){
+    var box=el('div','coin');
+    box.appendChild(el('b','',clean(c.coin)+(c.ticker?' ('+clean(c.ticker)+')':'')));
+    if(c.network)box.appendChild(el('span','','Network: '+clean(c.network)));
+    box.appendChild(copyRow(clean(c.address)));
+    d.appendChild(box);
+  });
+  d.appendChild(el('p','hint','Only send each coin on the network listed. Anything else can’t be recovered.'));
+});
+if(!count)document.getElementById('soon').hidden=false;
+})();
+</script>
+</body>
+</html>

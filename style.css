@@ -181,6 +181,29 @@ button.btn{font-family:inherit;line-height:1.6;cursor:pointer}
 .book p+p{margin-top:1rem}
 @media(max-width:700px){.photos{flex-direction:column;align-items:stretch}}
 
+/* pay page */
+.paylist{list-style:none;padding:0;display:grid;gap:1.6rem;max-width:560px}
+.paybtn{display:block;text-decoration:none;color:var(--ink);padding:1.2rem 1.4rem;transition:transform .15s}
+.paybtn b{font:400 2rem/1.1 "Permanent Marker",cursive;display:block}
+.paybtn>span,.paybtn summary span{display:block;font-weight:700;opacity:.7}
+.paylist li:nth-child(5n+1) .paybtn,.paylist li:nth-child(5n) .paybtn{background-color:var(--lime)}
+.paylist li:nth-child(5n+2) .paybtn{background-color:var(--pink)}
+.paylist li:nth-child(5n+3) .paybtn{background-color:#7fa8ff}
+.paylist li:nth-child(odd) .paybtn{transform:rotate(-1.2deg)}
+.paylist li:nth-child(even) .paybtn{transform:rotate(1deg);box-shadow:7px 7px 0 var(--crimson)}
+a.paybtn:hover,details.paybtn[open]{transform:rotate(0) scale(1.02)}
+details.paybtn summary{position:relative;cursor:pointer;list-style:none}
+details.paybtn summary::-webkit-details-marker{display:none}
+details.paybtn summary::after{content:"\25BE";position:absolute;right:0;top:.2rem;font-size:1.6rem}
+details.paybtn[open] summary::after{content:"\25B4"}
+.paybtn .hint{font-size:.95rem;font-weight:600;opacity:.8;line-height:1.4;margin-top:.8rem}
+.copyrow{display:flex;gap:.7rem;align-items:center;margin-top:.8rem}
+.copyrow code{flex:1;min-width:0;overflow-wrap:anywhere;word-break:break-all;background:#fff;border:2px solid var(--ink);padding:.4rem .6rem;font:700 .95rem/1.3 ui-monospace,Menlo,Consolas,monospace}
+.paybtn .coin{margin-top:1.1rem;padding-top:.9rem;border-top:2px dashed var(--ink)}
+.paybtn .coin b{font:800 1.15rem/1.2 Karla,sans-serif}
+.paybtn .coin span{display:block;font-weight:700;opacity:.7}
+.paynote{margin-top:2.2rem;font-weight:700;max-width:560px}
+
 @media(max-width:800px){.hero{grid-template-columns:1fr}.hero-right{grid-column:1;grid-row:auto;order:-1;margin-bottom:1rem}.hero .logo{width:min(60%,220px)}.now-playing{position:static;width:100%;max-width:420px;margin:0 auto 1.5rem;order:-2;transform:none}}
 @media(max-width:700px){.brand{display:none}nav{justify-content:center}.about{grid-template-columns:1fr}.ticket{grid-template-columns:1fr;gap:.5rem}.ticket time{border:0;padding:0}}
 @media(prefers-reduced-motion:reduce){.wash{display:none}.in{animation:none;opacity:1;transform:rotate(var(--r,0deg))}.track,.logo{animation:none}}
